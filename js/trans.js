@@ -1,3 +1,8 @@
+// 腾讯API的三个验证参数，请自行申请，然后填上你的
+const SecretId = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+const SecretKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+const ProjectId = XXXXXXXXXXXXXXXXXXXXXXXXXXXX;
+
 // 参数对转成字符串
 function paramsToStr(params)
 {
@@ -52,9 +57,6 @@ function sendTrans(sourceText, cb)
 		return;
 	}
 
-	SecretId = "XXXXXXXXXXXXXXXXXXXXXXXX";
-	SecretKey = "XXXXXXXXXXXXXXXXXXXXXXXX";
-
 	var reqMethod = "GET";
 	var host = "tmt.tencentcloudapi.com";
 	var hostPath = "/";
@@ -70,7 +72,7 @@ function sendTrans(sourceText, cb)
 	var reqParams = [
 		[ "Action", "TextTranslate" ],
 		[ "Nonce", Nonce ],
-		[ "ProjectId", XXXXXXXX ],
+		[ "ProjectId", ProjectId ],
 		["Region", "ap-beijing"],
 		["SecretId", SecretId],
 		["Source","auto"],

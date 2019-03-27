@@ -30,6 +30,8 @@ const OPENED_TWEET_COMMENT_CONVERSATION_CLASS_NAME = "ThreadedConversation";
 const TENCENT_TRANS_BUTTON_CLASS_NAME = "tencent-trans-btn";
 const TENCENT_TRANS_DIV_CLASS_NAME = "tencent-trans-div";
 
+var currentURL;
+
 // 打开的推文条目没有id，为了方便起见，下面是生成唯一id的机制
 const FIXED_ID_PREFIX = "TENCENT_TRANS_FIXED_ID_";
 var nextFixedId = 1;
@@ -163,6 +165,7 @@ function addTencentTransButtonsToStream(root)
 // 文档刚加载完毕时添加一遍腾讯翻译按钮，以后要监听页面改变，有新的推文条目时还要再次添加
 document.addEventListener('DOMContentLoaded', function()
 {
+	currentURL = document.URL;
 	addTencentTransButtonsToStream(document);
 });
 
@@ -209,6 +212,17 @@ var obs = new MutationObserver(function(mutations)
 				{
 					addTencentTransButtonsToStream(openedTweetCommentStream);
 				}
+			}
+		}
+
+		// 解决在推特上点击别人，跳转到对方主页后，没有添加腾讯翻译按钮的问题
+		if(currentURL != document.URL)
+		{
+			currentURL = document.URL;
+
+			if(currentURL && currentURL.indexOf("/status/") == -1)
+			{
+				addTencentTransButtonsToStream(document);
 			}
 		}
 	});
